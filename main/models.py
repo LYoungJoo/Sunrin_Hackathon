@@ -18,3 +18,5 @@ class Getdata(models.Model):
 	data10 = models.IntegerField(default=0)
 	data11 = models.IntegerField(default=0)
 	data12 = models.IntegerField(default=0)
+
+	

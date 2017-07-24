@@ -1,0 +1,132 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>에너지</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link href="{% static 'css/bulma.css' %}" type="text/css" rel="stylesheet">
+    <link href="{% static 'css/aside.css' %}" type="text/css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.min.js"></script>
+</head>
+
+<body>
+    <!--   폰트-->
+    <style>
+        /*        @import url(http://fonts.googleapis.com/earlyaccess/hanna.css);*/
+        /*        @import url(http://fonts.googleapis.com/earlyaccess/jejugothic.css);*/
+        
+        @import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+        * {
+            font-family: 'Nanum Gothic', sans-serif
+            /*            font-family: 'Hanna', sans-serif*/
+            /*            font-family: 'Jeju Gothic', sans-serif*/
+        }
+        
+        p {
+            font-weight: bold
+        }
+    </style>
+    <!--    메뉴-->
+    <nav class="nav is-dark has-shadow" id="top">
+        <div class="container">
+            <div class="nav-left">
+                <a class="nav-item" href="/totalgraph"> <img src="{% static 'images/bulma2.png' %}" alt="Description">  </a>
+            </div> <span class="nav-toggle">
+        <span></span> <span></span> <span></span> </span>
+            <div class="nav-right nav-menu is-hidden-tablet"> 
+            <a href="/totalgraph" class="nav-item is-tab">
+          전체 그래프
+        </a>
+            <a href="/homegraph" class="nav-item is-tab">
+          가정 그래프
+        </a>
+          <a href="/energy" class="nav-item is-tab is-active">
+          에너지
+        </a> <a href="/nojinse" class="nav-item is-tab">
+          누진세
+        </a>
+        <a href="/control" class="nav-item is-tab">
+          기기 제어
+        </a>
+          </div>
+        </div>
+    </nav>
+    <div class="columns">
+        <aside class="column is-2 aside hero is-fullheight is-hidden-mobile">
+            <div>
+                <div class="main">
+                    <a href="/totalgraph" class="item"> <span class="icon">
+                    <i class="fa fa-pie-chart"></i></span> <span class="name">전체 그래프</span></a>
+                    <a href="/homegraph" class="item"> <span class="icon">
+                    <i class="fa fa-bar-chart"></i></span> <span class="name">가정 그래프</span></a> <a href="/energy" class="item active"><span class="icon">
+                    <i class="fa fa-plug"></i></span>
+                    <span class="name">에너지</span></a> <a href="/nojinse" class="item"><span class="icon">
+                    <i class="fa fa-money"></i></span>
+                    <span class="name">누진세</span></a> <a href="/control" class="item"><span class="icon">
+                    <i class="fa fa-bolt"></i></span>
+                    <span class="name">기기 제어</span></a> </div>
+            </div>
+        </aside>
+        <div class="content column is-10">
+            <section class="section">
+                <div class="columns is-mobile is-multiline">
+                    <div class="column is-one-half-desktop is-full-mobile">
+                        <div class="card">
+                            <header class="card-header">
+                                <p class="card-header-title"> 태양광 에너지 </p>
+                                <a id="downclick1" class="card-header-icon"> <span class="icon">
+        <i class="fa fa-angle-down"></i>
+      </span> </a>
+                            </header>
+                            <div class="card-content content1">
+                                <div class="content">태양으로부터 얻은 빛을 에너지로 활용하는 방식으로, 1시간당 125w/h를 생산한다.</div>
+                            </div>
+                            <footer class="card-footer"> <a class="card-footer-item">{{sun}} 시간</a> </footer>
+                        </div>
+                    </div>
+                    <div class="column is-one-half-desktop is-full-mobile">
+                        <div class="card">
+                            <header class="card-header">
+                                <p class="card-header-title">자가 발전 자전거</p>
+                                <a id="downclick2" class="card-header-icon"> <span class="icon">
+        <i class="fa fa-angle-down"></i>
+      </span> </a>
+                            </header>
+                            <div class="card-content content2">
+                                <div class="content"> 페달을 돌리면 전기가 생산되며, 내장된 배터리에 충전해서 사용하거나 페달을 돌리면 그 즉시 사용 가능하다. 1시간당 100w를 생산한다.</div>
+                            </div>
+                            <footer class="card-footer"> <a class="card-footer-item">{{bic}} 시간</a> </footer>
+                        </div>
+                    </div>
+                    
+            </section>
+        </div>
+        <style>
+            .card-content {
+                display: none
+            }
+            
+            .vis-text {
+                display: block
+            }
+        </style>
+        <script>
+            $("#downclick1").click(function () {
+                $('.content1').toggleClass('vis-text')
+            });
+            $("#downclick2").click(function () {
+                $('.content2').toggleClass('vis-text')
+            });
+            $("#downclick3").click(function () {
+                $('.content3').toggleClass('vis-text')
+            });
+        </script>
+    <script async type="text/javascript" src="{% static 'js/bulma.js' %}"></script>
+</body>
+
+</html>

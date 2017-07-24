@@ -1,0 +1,153 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>그래프</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link href="{% static 'css/bulma.css' %}" type="text/css" rel="stylesheet">
+    <link href="{% static 'css/aside.css' %}" type="text/css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.min.js"></script>
+</head>
+
+<body>
+<!--   폰트-->
+    <style>
+/*        @import url(http://fonts.googleapis.com/earlyaccess/hanna.css);*/
+/*        @import url(http://fonts.googleapis.com/earlyaccess/jejugothic.css);*/
+        @import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+        *{
+            font-family: 'Nanum Gothic', sans-serif
+/*            font-family: 'Hanna', sans-serif*/
+/*            font-family: 'Jeju Gothic', sans-serif*/
+        }
+        p{
+            font-weight: bold
+        }
+    </style>
+    
+<!--    메뉴-->
+    <nav class="nav is-dark has-shadow" id="top">
+        <div class="container">
+            <div class="nav-left">
+                <a class="nav-item" href="/totalgraph"> <img src="{% static 'images/bulma2.png' %}" alt="Description"> </a>
+            </div> <span class="nav-toggle">
+        <span></span> <span></span> <span></span> </span>
+            <div class="nav-right nav-menu is-hidden-tablet"> 
+            <a href="/totalgraph" class="nav-item is-tab is-active">
+          전체 그래프
+        </a>
+            <a href="/homegraph" class="nav-item is-tab">
+          가정 그래프
+        </a>
+          <a class="nav-item is-tab">
+          에너지
+        </a> <a href="/nojinse" class="nav-item is-tab">
+          누진세
+        </a>
+        <a href="/control" class="nav-item is-tab">
+          기기 제어
+        </a>
+          </div>
+        </div>
+    </nav>
+    <div class="columns">
+        <aside class="column is-2 aside hero is-fullheight is-hidden-mobile">
+            <div>
+                <div class="main">
+                    <a href="/totalgraph" class="item active"> <span class="icon">
+                    <i class="fa fa-pie-chart"></i></span> <span class="name">전체 그래프</span></a> 
+                    <a href="/homegraph" class="item"> <span class="icon">
+                    <i class="fa fa-bar-chart"></i></span> <span class="name">가정 그래프</span></a> 
+                    <a href="/energy" class="item"><span class="icon">
+                    <i class="fa fa-plug"></i></span>
+                    <span class="name">에너지</span></a>
+                     <a href="/nojinse" class="item"><span class="icon">
+                    <i class="fa fa-money"></i></span>
+                    <span class="name">누진세</span></a> 
+                    <a href="/control" class="item"><span class="icon">
+                    <i class="fa fa-bolt"></i></span>
+                    <span class="name">기기 제어</span></a> </div>
+            </div>
+        </aside>
+<!--        에너지 그래프 제목, 본문-->
+        <div class="content column is-10">
+            <div class="title is-2">한국 에너지 그래프</div>
+            <p>시간대별 전력 사용량 그래프로 전기 생활 패턴을 분석하고,<br>
+             피크타임 그래프로 전기가 가장 많이 쓰이는 시간대를 피하고, <br>
+             최대/최소 전력량 그래프로 최대 전력량과 최소 전력량을 알아볼 수 있습니다.</p>
+             
+<!--             그래프 부분-->
+            <section class="section">
+                <div class="columns is-mobile is-multiline">
+                    <div class="column is-one-third-desktop is-full-mobile">
+                        <section class="panel">
+                            <p class="panel-heading"> 전력 사용량 </p>
+                            <img src="http://power.kpx.or.kr/ems_chart_compare.php">
+                        </section>
+                    </div>
+                    <div class="column is-one-third-desktop is-full-mobile">
+                        <section class="panel">
+                            <p class="panel-heading"> 피크타임 </p>
+                            <canvas id="peakChart" width="100" height="100" style="padding:15px"></canvas>
+                            <p style="text-align: center;margin-bottom: 15px;font-size: 20px;"> {{ peak }}</p>
+                        </section>
+                    </div>
+                    <div class="column is-one-third-desktop is-full-mobile">
+                        <section class="panel">
+                            <p class="panel-heading"> 최대/최소 전력량</p>
+                            <canvas id="maxPreChart" width="100" height="100" style="padding:15px"></canvas>
+                        </section>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <script>
+       
+        var ctx2 = document.getElementById("peakChart").getContext('2d');
+        var myChart = new Chart(ctx2, {
+            type: 'pie'
+            , data: {
+                labels: [ "non-peaktime","peaktime"]//, "2", "3", "4", "5", "6","7", "8", "9", "10", "11"]
+                , datasets: [{
+                    backgroundColor: [
+        "#E5E5E5"
+        , "#3498db"
+        , "#E5E5E5"
+        , "#E5E5E5"
+        , "#E5E5E5"
+        , "#E5E5E5"
+        , "#E5E5E5"
+        , "#E5E5E5"
+        , "#E5E5E5"
+        , "#E5E5E5"
+        , "#E5E5E5"
+        , "#E5E5E5"
+      ]
+                    , data: [10, 3]
+    }]
+            }
+        });
+        //        세번째 최대/예상 전력 막대그래프
+        var ctx3 = document.getElementById("maxPreChart").getContext('2d');
+        var myBarChart = new Chart(ctx3, {
+            type: 'horizontalBar'
+            , data: {
+                labels: ["최대", "최소"]
+                , datasets: [{
+                    label: "최대 전력량"
+                    , backgroundColor: ["#2ecc71", "#3498db"]
+                    , data: [ {{max}} , {{min}}]
+    }]
+            }
+        , });
+    </script>
+    <script async type="text/javascript" src="{% static 'js/bulma.js' %}"></script>
+</body>
+
+</html>

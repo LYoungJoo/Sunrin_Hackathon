@@ -1,0 +1,153 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>누진세 계산</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link href="{% static 'css/bulma.css' %}" type="text/css" rel="stylesheet">
+    <link href="{% static 'css/aside.css' %}" type="text/css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.min.js"></script>
+</head>
+
+<body>
+    <!--   폰트-->
+    <style>
+        /*        @import url(http://fonts.googleapis.com/earlyaccess/hanna.css);*/
+        /*        @import url(http://fonts.googleapis.com/earlyaccess/jejugothic.css);*/
+        
+        @import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+        * {
+            font-family: 'Nanum Gothic', sans-serif
+            /*            font-family: 'Hanna', sans-serif*/
+            /*            font-family: 'Jeju Gothic', sans-serif*/
+        }
+        
+        p {
+            font-weight: bold
+        }
+    </style>
+    <!--    메뉴-->
+    <nav class="nav is-dark has-shadow" id="top">
+        <div class="container">
+            <div class="nav-left">
+                <a class="nav-item" href="/totalgraph"> <img src="{% static 'images/bulma2.png' %}" alt="Description"> 
+            </div> <span class="nav-toggle">
+        <span></span> <span></span> <span></span> </span>
+            <div class="nav-right nav-menu is-hidden-tablet"> 
+            <a href="/totalgraph" class="nav-item is-tab">
+          전체 그래프
+        </a>
+            <a href="/homegraph" class="nav-item is-tab">
+          가정 그래프
+        </a>
+          <a href="/energy" class="nav-item is-tab">
+          에너지
+        </a> <a href="/nojinse" class="nav-item is-tab is-active">
+          누진세
+        </a>
+        <a href="/control" class="nav-item is-tab">
+          기기 제어
+        </a>
+          </div>
+        </div>
+    </nav>
+    <div class="columns">
+        <aside class="column is-2 aside hero is-fullheight is-hidden-mobile">
+            <div>
+                <div class="main">
+                    <a href="/totalgraph" class="item"> <span class="icon">
+                    <i class="fa fa-pie-chart"></i></span> <span class="name">전체 그래프</span></a> 
+                    <a href="/homegraph" class="item"> <span class="icon">
+                    <i class="fa fa-bar-chart"></i></span> <span class="name">가정 그래프</span></a> 
+                    <a href="/energy" class="item"><span class="icon">
+                    <i class="fa fa-plug"></i></span>
+                    <span class="name">에너지</span></a>
+                     <a href="/nojinse" class="item active"><span class="icon">
+                    <i class="fa fa-money"></i></span>
+                    <span class="name">누진세</span></a> 
+                    <a href="/control" class="item"><span class="icon">
+                    <i class="fa fa-bolt"></i></span>
+                    <span class="name">기기 제어</span></a> </div>
+            </div>
+        </aside>
+        <div class="content column is-10">
+            <div class="title is-2">누진세 계산</div>
+            <p>이번 달 누진세는<span style="font-size: 27px; color: #00D1B2;">{{value}}</span><span style="color: #00D1B2; font-size: 27px;">원</span>입니다</p>
+            <br>
+            <br>
+            <div class="title is-2">기존 주택용 전기요금표</div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>구간</th>
+                        <th>기본요금</th>
+                        <th>전력량 요금</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>100 kWh 이하</td>
+                        <td>410</td>
+                        <td>60.7</td>
+                    </tr>
+                    <tr>
+                        <td>101 ~ 200 kWh</td>
+                        <td>910</td>
+                        <td>125.9</td>
+                    </tr>
+                    <tr>
+                        <td>201 ~ 300 kWh</td>
+                        <td>1,600</td>
+                        <td>187.9</td>
+                    </tr>
+                    <tr>
+                        <td>301 ~ 400 kWh</td>
+                        <td>3,850</td>
+                        <td>280.6</td>
+                    </tr>
+                    <tr>
+                        <td>401 ~ 500 kWh</td>
+                        <td>7,300</td>
+                        <td>417.7</td>
+                    </tr>
+                    <tr>
+                        <td>501 kWh 이상</td>
+                        <td>12,940</td>
+                        <td>709.5</td>
+                    </tr>
+                </tbody>
+            </table>
+            <!--
+          <p style="
+    text-align: center;
+    margin: 0; 
+">이번 달 우리 집의 전기세는</p>
+           <h1 class="title is-1" style="
+    font-size: 80px;
+    margin: 0;
+    text-align: center;
+">10,300</h1>
+           <p style="
+    text-align: center;
+">원입니다</p>
+-->
+        </div>
+    </div>
+    <!--
+    <footer class="footer">
+        <div class="container">
+            <div class="has-text-centered">
+                <p> <strong>작품명</strong> by <strong>경기도에서왔습니다</strong></p>
+               
+            </div>
+        </div>
+    </footer>
+-->
+    <script async type="text/javascript" src="{% static 'js/bulma.js' %}"></script>
+</body>
+
+</html>
